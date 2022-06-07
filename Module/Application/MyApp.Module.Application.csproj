@@ -8,6 +8,6 @@
 		<FrameworkReference Include="Microsoft.AspNetCore.App" />
 	</ItemGroup>
 	<ItemGroup>
-	  <ProjectReference Include="..\MyApp.Module.Application.Shared\MyApp.Module.Application.Shared.csproj" />
+	  <ProjectReference Include="..\Application.Shared\MyApp.Module.Application.Shared.csproj" />
 	</ItemGroup>
 </Project>
