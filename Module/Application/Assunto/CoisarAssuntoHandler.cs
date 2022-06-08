@@ -6,6 +6,6 @@ public class CoisarAssuntoHandler: HandlerBase, ICoisarAssuntoHandler
     public async Task<CoisarAssuntoResponse> Post([FromBody]CoisarAssuntoRequest request)
     {
         //return await Task.FromResult(new CoisarAssuntoResponse(model.Campo1 + "a", model.Campo2 + "b"));
-        return await Task.FromResult(new CoisarAssuntoResponse("a", "b"));
+        return await Task.FromResult(new CoisarAssuntoResponse($"{DateTime.Now}", $"{Guid.NewGuid()}"));
     }
 }
