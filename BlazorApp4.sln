@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32516.85
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp4.Server", "BlazorApp4\Server\BlazorApp4.Server.csproj", "{D8A0C7CC-734C-4FEC-B664-0BC8E1C5E461}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp4.Server", "BlazorApp4\Server\BlazorApp4.Server.csproj", "{D8A0C7CC-734C-4FEC-B664-0BC8E1C5E461}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp4.Client", "BlazorApp4\Client\BlazorApp4.Client.csproj", "{34398C43-DCCF-4A19-B30B-42B502C435E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp4.Client", "BlazorApp4\Client\BlazorApp4.Client.csproj", "{34398C43-DCCF-4A19-B30B-42B502C435E0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp4.Shared", "BlazorApp4\Shared\BlazorApp4.Shared.csproj", "{FED37FCC-4386-4662-9533-F58A08E707C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp4.Shared", "BlazorApp4\Shared\BlazorApp4.Shared.csproj", "{FED37FCC-4386-4662-9533-F58A08E707C4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Module", "Module", "{3AA317AD-CB1B-4EDF-910A-4A55BF5DF497}"
 EndProject
@@ -18,9 +18,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_global", "_global", "{015C
 		.gitignore = .gitignore
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Module.Application", "Module\Application\MyApp.Module.Application.csproj", "{F0D61887-1440-4702-AFB1-E289338C13BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Module.Application", "Module\Application\MyApp.Module.Application.csproj", "{F0D61887-1440-4702-AFB1-E289338C13BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.Module.Application.Shared", "Module\Application.Shared\MyApp.Module.Application.Shared.csproj", "{3002B689-3042-415F-B5EF-77062E004B48}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Module.Application.Shared", "Module\Application.Shared\MyApp.Module.Application.Shared.csproj", "{3002B689-3042-415F-B5EF-77062E004B48}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.SourceGenerators", "MyApp.SourceGenerators\MyApp.SourceGenerators.csproj", "{B293EDA9-81D3-4476-92F8-7930C2CA0701}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -48,6 +50,10 @@ Global
 		{3002B689-3042-415F-B5EF-77062E004B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3002B689-3042-415F-B5EF-77062E004B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3002B689-3042-415F-B5EF-77062E004B48}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B293EDA9-81D3-4476-92F8-7930C2CA0701}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B293EDA9-81D3-4476-92F8-7930C2CA0701}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B293EDA9-81D3-4476-92F8-7930C2CA0701}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B293EDA9-81D3-4476-92F8-7930C2CA0701}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,8 +1,7 @@
 ﻿@page "/fetchdata"
 @using BlazorApp4.Shared
-@using MyApp.Module.Application.Shared.Assunto
 @inject HttpClient Http
-@inject ICoisarAssuntoHandler Handler;
+@inject ICoisarAssuntoHandler CoisaAssuntoHandlerClient
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -10,7 +9,25 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (_forecasts == null)
+@if (_reponse != null)
+{
+    <div>
+        @_reponse.Campo1
+    </div>
+    <div>
+        @_reponse.Campo2
+    </div>
+}
+else
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+
+@*@if (_forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
@@ -37,18 +54,14 @@ else
             }
         </tbody>
     </table>
-}
+}*@
 
 @code {
-    private WeatherForecast[]? _forecasts;
+    //private WeatherForecast[]? _forecasts;
+    private CoisarAssuntoResponse? _reponse;
 
     protected override async Task OnInitializedAsync()
     {
-        var request = new CoisarAssuntoRequest("x", "y")
-        { 
-            Campo3 = "opa"
-        };
-        await Handler.Post(request);
-        _forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
+        _reponse = await CoisaAssuntoHandlerClient.Post(new CoisarAssuntoRequest("", ""));
     }
 }
