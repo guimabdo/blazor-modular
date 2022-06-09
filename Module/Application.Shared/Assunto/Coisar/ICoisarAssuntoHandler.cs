@@ -1,4 +1,4 @@
-﻿namespace MyApp.Module.Application.Shared.Assunto;
+﻿namespace MyApp.Module.Application.Shared.Assunto.Coisar;
 public interface ICoisarAssuntoHandler  // HTTP POST /CoisarAssuntoHandler
 {
     Task<CoisarAssuntoResponse> Post(CoisarAssuntoRequest request);
