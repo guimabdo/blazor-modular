@@ -1,7 +1,7 @@
 ﻿@page "/fetchdata"
-@using BlazorApp4.Shared
+@using MyApp.Module.Application.Shared.Assunto.Coisar
 @inject HttpClient Http
-@inject ICoisarAssuntoHandler CoisaAssuntoHandlerClient
+@inject ICoisarAssuntoHandler CoisaAssuntoHandler
 
 <PageTitle>Weather forecast</PageTitle>
 
@@ -9,13 +9,13 @@
 
 <p>This component demonstrates fetching data from the server.</p>
 
-@if (_reponse != null)
+@if (_response != null)
 {
     <div>
-        @_reponse.Campo1
+        @_response.Campo1
     </div>
     <div>
-        @_reponse.Campo2
+        @_response.Campo2
     </div>
 }
 else
@@ -26,42 +26,10 @@ else
         </div>
     </div>
 }
-
-@*@if (_forecasts == null)
-{
-    <p><em>Loading...</em></p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in _forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}*@
-
 @code {
-    //private WeatherForecast[]? _forecasts;
-    private CoisarAssuntoResponse? _reponse;
-
+    private CoisarAssuntoResponse? _response;
     protected override async Task OnInitializedAsync()
     {
-        _reponse = await CoisaAssuntoHandlerClient.Post(new CoisarAssuntoRequest("", ""));
+        _response = await CoisaAssuntoHandler.Post(new CoisarAssuntoRequest("", ""));
     }
 }

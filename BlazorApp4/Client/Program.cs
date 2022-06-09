@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using MyApp.Module.Application.Shared.Assunto;
 using MyApp.Module.Application.Shared;
+using MyApp.Module.Application.Shared.Assunto.Coisar;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");

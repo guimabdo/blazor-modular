@@ -13,7 +13,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Module\Application\MyApp.Module.Application.csproj" />
     <ProjectReference Include="..\Client\BlazorApp4.Client.csproj" />
-    <ProjectReference Include="..\Shared\BlazorApp4.Shared.csproj" />
   </ItemGroup>
 
 

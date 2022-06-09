@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc.ActionConstraints;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -56,9 +58,23 @@ public class MyConvention : IApplicationModelConvention
                 };
                 if (verb is not null)
                 {
-                    
                     action.Selectors.First().ActionConstraints.Add(new HttpMethodActionConstraint(new[]{ verb }));
                 }
+
+                if (action.Parameters.Any())
+                {
+                    switch (verb)
+                    {
+                        case "DELETE":
+                        case "GET":
+                            action.Parameters.First().BindingInfo = new BindingInfo
+                            {
+                                BindingSource = BindingSource.Query
+                            };
+                            break;
+                    }
+                }
+
             }
         }
     }
