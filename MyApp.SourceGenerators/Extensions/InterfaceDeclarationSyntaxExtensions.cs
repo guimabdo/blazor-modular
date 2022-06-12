@@ -6,12 +6,6 @@ namespace MyApp.SourceGenerators.Extensions
 {
     public static class InterfaceDeclarationSyntaxExtensions
     {
-        public static string GetRequestType(this MethodDeclarationSyntax method)
-        {
-            return method.ParameterList.Parameters.Select(p => p.ToFullString()).FirstOrDefault();
-        }
-
-
         public static MethodDeclarationSyntax GetHttpActionMethod(this InterfaceDeclarationSyntax interfaceHandler)
         {
             return interfaceHandler.Members

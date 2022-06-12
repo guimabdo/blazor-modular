@@ -10,9 +10,10 @@ namespace MyApp.SourceGenerators.Extensions
     {
         public static HttpMethodType IdentifyHttpMethodType(this MethodDeclarationSyntax method)
         {
-            switch (method.Identifier.ValueText)
+            switch (method.Identifier.ValueText.Trim())
             {
                 case "Post": return HttpMethodType.Post;
+                case "Get": return HttpMethodType.Get;
             }
 
             return HttpMethodType.Unknown;
