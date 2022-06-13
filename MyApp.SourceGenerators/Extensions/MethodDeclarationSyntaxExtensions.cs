@@ -14,6 +14,7 @@ namespace MyApp.SourceGenerators.Extensions
             {
                 case "Post": return HttpMethodType.Post;
                 case "Get": return HttpMethodType.Get;
+                case "Delete": return HttpMethodType.Delete;
             }
 
             return HttpMethodType.Unknown;

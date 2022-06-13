@@ -15,6 +15,7 @@ public static class QueryStringHelper
         queries.AddRange(propertiesDictionary.GetQueryStringFromBool());
         queries.AddRange(propertiesDictionary.GetQueryStringFromDateTime());
         queries.AddRange(propertiesDictionary.GetQueryStringFromIEnumerable());
+        queries.AddRange(propertiesDictionary.GetQueryStringFromGuids());
         
         return queries.JoinQueriesString();
     }
@@ -30,48 +31,67 @@ public static class QueryStringHelper
         );
     }
 
-    private static IEnumerable<string> GetQueryStringFromStrings(this IDictionary<string, object?> propertiesDictionary, string? listTag = null)
+    private static IEnumerable<string> CreateQueryString(
+        IDictionary<string, object?> propertiesDictionary,
+        Func<KeyValuePair<string, object?>, bool> filter,
+        Func<KeyValuePair<string, object?>, string> buildQueryString)
     {
         return propertiesDictionary
-            .Where(p => p.Value is string and not null)
-            .Select(p => CreateQueryStringFromPair( listTag ?? p.Key, p.Value as string ))
+            .Where(filter)
+            .Select(buildQueryString)
             .ToList();
     }
-    private static IEnumerable<string> GetQueryStringFromEnums(this IDictionary<string, object?> propertiesDictionary, string? listTag = null)
-    {
-        return  propertiesDictionary
-            .Where(p => p.Value is Enum)
-            .Select(p => CreateQueryStringFromPair(listTag ?? p.Key, p.Value?.ReadEnumNumber()))
-            .ToList();
-    }
-    private static IEnumerable<string> GetQueryStringFromNumerics(this IDictionary<string, object?> propertiesDictionary, string? listTag = null)
-    {
-        return propertiesDictionary
-            .Where(p => p.Value is int or long or decimal or float or double)
-            .Select(p => CreateQueryStringFromPair(listTag ?? p.Key, p.Value?.ToString()))
-            .ToList();
-    }
+
+    private static IEnumerable<string> GetQueryStringFromStrings(this IDictionary<string, object?> propertiesDictionary)
+        =>  CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is string and not null,
+            p => CreateQueryStringFromPair( p.Key, p.Value as string )
+        );
+    
+
+    private static IEnumerable<string> GetQueryStringFromEnums(this IDictionary<string, object?> propertiesDictionary)
+        => CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is Enum,
+            p => CreateQueryStringFromPair(p.Key, p.Value?.ReadEnumNumber())
+        );
+
+    private static IEnumerable<string> GetQueryStringFromNumerics(
+        this IDictionary<string, object?> propertiesDictionary)
+        => CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is int or long or decimal or float or double,
+            p => CreateQueryStringFromPair(p.Key, p.Value?.ToString())
+        );
+    
     private static IEnumerable<string> GetQueryStringFromBool(this IDictionary<string, object?> propertiesDictionary)
-    {
-        return propertiesDictionary
-            .Where(p => p.Value is bool)
-            .Select(p => CreateQueryStringFromPair(p.Key, p.Value?.ToString()))
-            .ToList();
-    }
-    private static IEnumerable<string> GetQueryStringFromDateTime(this IDictionary<string, object?> propertiesDictionary, string? listTag = null)
-    {
-        return propertiesDictionary
-            .Where(p => p.Value is DateTime or DateOnly or TimeOnly or TimeSpan)
-            .Select(p => CreateQueryStringFromPair(listTag ?? p.Key, p.Value?.ToString()))
-            .ToList();
-    }
+        => CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is bool,
+            p => CreateQueryStringFromPair(p.Key, p.Value?.ToString())
+        );
+    
+    private static IEnumerable<string> GetQueryStringFromDateTime(this IDictionary<string, object?> propertiesDictionary)
+        => CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is DateTime or DateOnly or TimeOnly or TimeSpan,
+            p => CreateQueryStringFromPair(p.Key, p.Value?.ToString())
+        );
+    
+    private static IEnumerable<string> GetQueryStringFromGuids(this IDictionary<string, object?> propertiesDictionary)
+        => CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is Guid,
+            p => CreateQueryStringFromPair(p.Key, (p.Value as Guid?).ToString())
+        );
+
     private static IEnumerable<string> GetQueryStringFromIEnumerable(this IDictionary<string, object?> propertiesDictionary)
-    {
-        return propertiesDictionary
-            .Where(p => p.Value is IEnumerable)
-            .Select(p => p.CreateQueryStringFromList())
-            .ToList();
-    }
+        => CreateQueryString(
+            propertiesDictionary,
+            o => o.Value is IEnumerable,
+            CreateQueryStringFromList
+        );
     
     private static string? ReadEnumNumber(this object value)
     {
@@ -79,7 +99,7 @@ public static class QueryStringHelper
         return Convert.ChangeType(value, Enum.GetUnderlyingType(type)).ToString();
     }
 
-    private static string CreateQueryStringFromList(this KeyValuePair<string, object?> valuePair)
+    private static string CreateQueryStringFromList(KeyValuePair<string, object?> valuePair)
     {
         if (valuePair.Value is string) return string.Empty;
         if (valuePair.Value is not IEnumerable list) return string.Empty;

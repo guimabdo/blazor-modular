@@ -4,6 +4,7 @@
     {
         Unknown = 0,
         Post = 1,
-        Get = 2
+        Get = 2,
+        Delete = 3
     }
 }
