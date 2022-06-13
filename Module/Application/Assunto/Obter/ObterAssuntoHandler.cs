@@ -8,7 +8,7 @@ public class ObterAssuntoHandler : HandlerBase, IObterAssuntoHandler
     {
         return Task.FromResult(new ObterAssuntoResponse
         {
-            Campo1 = $"Resultado [{Guid.NewGuid()}] para {request.Filtro} em [{DateTime.Now}]"
+            Campo1 = $"Resultado [{request.Filtro} | {string.Join(" - ", request.LanguagesAvailable)} | {request.StandardLanguage}] para {request.Filtro} em [{DateTime.Now}]"
         });
     }
 }

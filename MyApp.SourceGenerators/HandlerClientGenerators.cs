@@ -73,6 +73,7 @@ public class {className} : {handler.Identifier.ValueText}
             {
                 case HttpMethodType.Post : return CreateHttpPostMethodBody(returnDeclaration, parameterDeclaration, endPoint);
                 case HttpMethodType.Get: return  CreateHttpGetMethodBody(returnDeclaration, parameterDeclaration, endPoint);
+                case HttpMethodType.Delete: return CreateHttpDeleteMethodBody(returnDeclaration, parameterDeclaration, endPoint);
                 case HttpMethodType.Unknown: return "//[Unknown] Http Method not Identified";
                 default: return "//[NotFound] Http Method not Identified";
             }
@@ -92,6 +93,22 @@ public class {className} : {handler.Identifier.ValueText}
         {returnLine}";
         }
 
+        private static string CreateHttpDeleteMethodBody(
+            ReturnDeclaration returnDeclaration,
+            ParameterDeclaration parameterDeclaration,
+            string endPoint)
+        {
+            
+            var returnLine = returnDeclaration.HasVoid ?
+                "" :
+                $@"return await responseMessage.Content.ReadFromJsonAsync<{returnDeclaration.ResponseDeclaration}>() ?? default!;";        
+            
+            return $@"
+        var queryString = QueryStringHelper.ToQueryString(request);
+        var responseMessage =  await _httpClient.DeleteAsync($""{endPoint}?{{queryString}}"");
+        {returnLine}";
+        }
+
         private static string CreateHttpGetMethodBody(
             ReturnDeclaration returnDeclaration, 
             ParameterDeclaration parameterDeclaration, 
@@ -99,7 +116,7 @@ public class {className} : {handler.Identifier.ValueText}
         {
             var methodSource = $@"
         var queryString = QueryStringHelper.ToQueryString({parameterDeclaration.Name});
-        return await _httpClient.GetFromJsonAsync<{returnDeclaration.TypeName}>($""{endPoint}?{{queryString}}"") ?? default!;";
+        return await _httpClient.GetFromJsonAsync<{returnDeclaration.ResponseDeclaration}>($""{endPoint}?{{queryString}}"") ?? default!;";
             
             return methodSource;
         }
