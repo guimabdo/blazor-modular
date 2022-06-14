@@ -12,15 +12,13 @@ namespace MyApp.SourceGenerators.Extensions
         {
             switch (method.Identifier.ValueText.Trim())
             {
-                case "Post": return HttpMethodType.Post;
-                case "Get": return HttpMethodType.Get;
-                case "Delete": return HttpMethodType.Delete;
+                case var methodName when methodName.StartsWith("Post", StringComparison.InvariantCultureIgnoreCase): return HttpMethodType.Post;
+                case var methodName when methodName.StartsWith("Get", StringComparison.InvariantCultureIgnoreCase): return HttpMethodType.Get;
+                case var methodName when methodName.StartsWith("Delete", StringComparison.InvariantCultureIgnoreCase): return HttpMethodType.Delete;
+                default: return HttpMethodType.Unknown;
             }
-
-            return HttpMethodType.Unknown;
         }
-
-
+        
         public static ReturnDeclaration GetReturnDeclaration(this MethodDeclarationSyntax method)
         {
             var nodes = method.ReturnType.DescendantNodesAndSelf().ToList();
@@ -33,15 +31,9 @@ namespace MyApp.SourceGenerators.Extensions
         {
             switch (node)
             {
-                case IdentifierNameSyntax syntax:
-                    declaration.ProcessIdentifierNameSyntax(syntax);
-                    break;
-                case PredefinedTypeSyntax syntax:
-                    declaration.ProcessPredefinedTypeSyntax(syntax);
-                    break;
-                case GenericNameSyntax syntax:
-                    declaration.ProcessGenericNameSyntax(syntax);
-                    break;
+                case IdentifierNameSyntax syntax: declaration.ProcessIdentifierNameSyntax(syntax); break;
+                case PredefinedTypeSyntax syntax: declaration.ProcessPredefinedTypeSyntax(syntax); break;
+                case GenericNameSyntax syntax: declaration.ProcessGenericNameSyntax(syntax); break;
             }
         }
 
@@ -52,10 +44,6 @@ namespace MyApp.SourceGenerators.Extensions
             switch (declaration.TypeName)
             {
                 case "Task":
-                    declaration.HasAsync = true;
-                    declaration.HasVoid = true;
-                    declaration.MethodDeclaration = declaration.TypeName;
-                    break;
                 case "ValueTask":
                     declaration.HasAsync = true;
                     declaration.HasVoid = true;
@@ -102,7 +90,5 @@ namespace MyApp.SourceGenerators.Extensions
                 declaration.ResponseDeclaration = fullName;
             }
         }
-
-
     }
 }

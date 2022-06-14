@@ -86,7 +86,7 @@ public class {className} : {handler.Identifier.ValueText}
         {
             var returnLine = returnDeclaration.HasVoid ? 
                 ""  : 
-                $@"return await responseMessage.Content.ReadFromJsonAsync<{returnDeclaration.ResponseDeclaration}>() ?? default!;";
+                $@"return await responseMessage.Content.ReadFromJsonAsync<{returnDeclaration.ResponseDeclaration}>();";
             
             return $@"
         var responseMessage = await _httpClient.PostAsJsonAsync(""{endPoint}"", {parameterDeclaration.Name});
@@ -101,7 +101,7 @@ public class {className} : {handler.Identifier.ValueText}
             
             var returnLine = returnDeclaration.HasVoid ?
                 "" :
-                $@"return await responseMessage.Content.ReadFromJsonAsync<{returnDeclaration.ResponseDeclaration}>() ?? default!;";        
+                $@"return await responseMessage.Content.ReadFromJsonAsync<{returnDeclaration.ResponseDeclaration}>();";        
             
             return $@"
         var queryString = QueryStringHelper.ToQueryString(request);
@@ -116,7 +116,7 @@ public class {className} : {handler.Identifier.ValueText}
         {
             var methodSource = $@"
         var queryString = QueryStringHelper.ToQueryString({parameterDeclaration.Name});
-        return await _httpClient.GetFromJsonAsync<{returnDeclaration.ResponseDeclaration}>($""{endPoint}?{{queryString}}"") ?? default!;";
+        return await _httpClient.GetFromJsonAsync<{returnDeclaration.ResponseDeclaration}>($""{endPoint}?{{queryString}}"");";
             
             return methodSource;
         }
