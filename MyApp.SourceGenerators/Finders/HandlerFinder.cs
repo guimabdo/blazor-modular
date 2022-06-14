@@ -15,13 +15,9 @@ namespace MyApp.SourceGenerators.Finders
 
         public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
         {
-            if (syntaxNode is InterfaceDeclarationSyntax handler)
-            {
-                if (handler.Identifier.ValueText.EndsWith("Handler"))
-                {
-                    Handlers.Add(handler);
-                }
-            }
+            if (!(syntaxNode is InterfaceDeclarationSyntax handler)) return;
+            if (handler.Identifier.ValueText.EndsWith("Handler"))
+            { Handlers.Add(handler); }
         }
     }
 }

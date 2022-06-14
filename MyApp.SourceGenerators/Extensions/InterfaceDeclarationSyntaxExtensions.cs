@@ -11,9 +11,9 @@ namespace MyApp.SourceGenerators.Extensions
             return interfaceHandler.Members
                 .OfType<MethodDeclarationSyntax>()
                 .FirstOrDefault(m =>
-                    m.Identifier.ValueText.Equals("Post", StringComparison.InvariantCultureIgnoreCase) ||
-                    m.Identifier.ValueText.Equals("Delete", StringComparison.InvariantCultureIgnoreCase) ||
-                    m.Identifier.ValueText.Equals("Get", StringComparison.InvariantCultureIgnoreCase)
+                    m.Identifier.ValueText.StartsWith("Post", StringComparison.InvariantCultureIgnoreCase) ||
+                    m.Identifier.ValueText.StartsWith("Delete", StringComparison.InvariantCultureIgnoreCase) ||
+                    m.Identifier.ValueText.StartsWith("Get", StringComparison.InvariantCultureIgnoreCase)
                 );
         }
     }
