@@ -20,7 +20,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Module.Application", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.Module.Application.Shared", "Module\Application.Shared\MyApp.Module.Application.Shared.csproj", "{3002B689-3042-415F-B5EF-77062E004B48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp.SourceGenerators", "MyApp.SourceGenerators\MyApp.SourceGenerators.csproj", "{B293EDA9-81D3-4476-92F8-7930C2CA0701}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp.SourceGenerators", "MyApp.SourceGenerators\MyApp.SourceGenerators.csproj", "{B293EDA9-81D3-4476-92F8-7930C2CA0701}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductX", "ProductX", "{696DAF25-689E-4DB7-9099-6B147954E054}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,8 +55,12 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{D8A0C7CC-734C-4FEC-B664-0BC8E1C5E461} = {696DAF25-689E-4DB7-9099-6B147954E054}
+		{34398C43-DCCF-4A19-B30B-42B502C435E0} = {696DAF25-689E-4DB7-9099-6B147954E054}
+		{3AA317AD-CB1B-4EDF-910A-4A55BF5DF497} = {696DAF25-689E-4DB7-9099-6B147954E054}
 		{F0D61887-1440-4702-AFB1-E289338C13BA} = {3AA317AD-CB1B-4EDF-910A-4A55BF5DF497}
 		{3002B689-3042-415F-B5EF-77062E004B48} = {3AA317AD-CB1B-4EDF-910A-4A55BF5DF497}
+		{B293EDA9-81D3-4476-92F8-7930C2CA0701} = {DEE79A2E-BF29-4B0B-AAE9-71FA475B626A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {20D283B3-83FD-4253-AAB8-AFE7BCD04F24}

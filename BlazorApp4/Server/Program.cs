@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews(configure =>
 {
-    configure.Conventions.Insert(0, new MyConvention());
+    configure.Conventions.Insert(0, new HandlerConvention());
 });
 builder.Services.AddRazorPages();
 
@@ -41,7 +41,7 @@ app.MapFallbackToFile("index.html");
 app.Run();
 
 
-public class MyConvention : IApplicationModelConvention
+public class HandlerConvention : IApplicationModelConvention
 {
     public void Apply(ApplicationModel application)
     {
